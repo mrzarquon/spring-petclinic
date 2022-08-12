@@ -21,3 +21,12 @@ vscode:
     - vscjava.vscode-java-pack
     - redhat.java
 
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: false
+    addCheck: true
+    addComment: true
+    addBadge: true
