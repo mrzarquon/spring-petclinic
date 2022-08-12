@@ -1,9 +1,23 @@
 image:
-  file: ./.devcontainer/Dockerfile
+  file: .gitpod.Dockerfile
+
 tasks:
-  - before: sudo usermod -a -G sdkman gitpod && sudo usermod -a -G nvm gitpod && sudo chown -R gitpod /usr/local/sdkman /usr/local/share/nvm
-  - init: ./mvnw install
+  - name: Start Tailscale
+    command: |
+      screen -d -m sudo tailscaled --state=mem:
+      sudo -E tailscale up --accept-dns --advertise-tags=tag:cs-node --accept-routes
+  - init: ./mvnw -B dependency:go-offline package -DskipTests
+    command: java -jar target/*.jar
+    name: Run PetClinic app
+
+# exposed ports
+ports:
+- port: 8080
+  onOpen: open-preview
+
 vscode:
   extensions:
-  - vscjava.vscode-java-pack
-  - redhat.vscode-xml
+    - pivotal.vscode-spring-boot
+    - vscjava.vscode-java-pack
+    - redhat.java
+
