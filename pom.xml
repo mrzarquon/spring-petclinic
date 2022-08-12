@@ -41,6 +41,7 @@
 
 
   <dependencies>
+  
     <!-- Spring and Spring Boot dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -98,7 +99,7 @@
     <dependency>
         <groupId>org.ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>3.10.0</version>
+        <version>3.9.9</version>
     </dependency>
 
     <!-- webjars -->
