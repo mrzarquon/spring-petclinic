@@ -7,7 +7,7 @@ tasks:
     command: |
       alias test_no_sql="mvn spring-boot:run"
       alias test_mysql="mvn spring-boot:run -Dspring-boot.run.profiles=mysql"
-      test_no_sql
+      mvn spring-boot:run
   - name: Start Tailscale & preflights
     command: |
       screen -d -m sudo tailscaled --state=mem:
