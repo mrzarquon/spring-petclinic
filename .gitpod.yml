@@ -5,7 +5,6 @@ tasks:
   - name: Run PetClinic app
     init: ./mvnw -B dependency:go-offline package -DskipTests
     command: java -jar target/*.jar
-    openMode: split-left
   - name: Start Tailscale & preflights
     command: |
       screen -d -m sudo tailscaled --state=mem:
@@ -13,11 +12,6 @@ tasks:
       gpgconf --kill gpg-agent
       git config --global user.signingkey $GPG_ID
       sudo -E tailscale up --accept-dns --accept-routes --hostname "DEMO-${GITPOD_WORKSPACE_ID}" --authkey=$TS_AUTHKEY
-    openMode: split-right
-  - name: shell
-    command: |
-
-    openMode: tab-after
 
 # exposed ports
 ports:
