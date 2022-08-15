@@ -6,7 +6,10 @@ tasks:
     init: ./mvnw -B dependency:go-offline package -DskipTests
     command: java -jar target/*.jar
     openMode: split-left
-  - name: Start Tailscale
+  - name: Start Tailscale & preflights
+    before: |
+      gpg --keyserver keys.openpgp.org --recv-keys 5993621FD9D214E212E421C3AC3A6CB9E464DBDA
+      gpgconf --kill gpg-agent
     command: |
       screen -d -m sudo tailscaled --state=mem:
       sudo -E tailscale up --accept-dns --accept-routes --hostname "DEMO-${GITPOD_WORKSPACE_ID}" --authkey=$TS_AUTHKEY
@@ -25,6 +28,7 @@ vscode:
     - pivotal.vscode-spring-boot
     - vscjava.vscode-java-pack
     - redhat.java
+    - vscjava.vscode-maven
 
 github:
   prebuilds:
