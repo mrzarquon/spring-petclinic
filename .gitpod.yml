@@ -2,13 +2,18 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - name: Run PetClinic app
+    init: ./mvnw -B dependency:go-offline package -DskipTests
+    command: java -jar target/*.jar
+    openMode: split-left
   - name: Start Tailscale
     command: |
       screen -d -m sudo tailscaled --state=mem:
-      sudo -E tailscale up --accept-dns --advertise-tags=tag:cs-node --accept-routes
-  - init: ./mvnw -B dependency:go-offline package -DskipTests
-    command: java -jar target/*.jar
-    name: Run PetClinic app
+      sudo -E tailscale up --accept-dns --accept-routes --hostname "DEMO-${GITPOD_WORKSPACE_ID}" --authkey=$TS_AUTHKEY
+    openMode: split-right
+  - name: shell
+    command: /usr/bin/bash
+    openMode: tab-after
 
 # exposed ports
 ports:
