@@ -7,15 +7,16 @@ tasks:
     command: java -jar target/*.jar
     openMode: split-left
   - name: Start Tailscale & preflights
-    before: |
-      gpg --keyserver keys.openpgp.org --recv-keys 5993621FD9D214E212E421C3AC3A6CB9E464DBDA
-      gpgconf --kill gpg-agent
     command: |
       screen -d -m sudo tailscaled --state=mem:
+      gpg --keyserver keys.openpgp.org --recv-keys $GPG_ID
+      gpgconf --kill gpg-agent
+      git config --global user.signingkey $GPG_ID
       sudo -E tailscale up --accept-dns --accept-routes --hostname "DEMO-${GITPOD_WORKSPACE_ID}" --authkey=$TS_AUTHKEY
     openMode: split-right
   - name: shell
-    command: /usr/bin/bash
+    command: |
+
     openMode: tab-after
 
 # exposed ports
