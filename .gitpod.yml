@@ -4,7 +4,10 @@ image:
 tasks:
   - name: Run PetClinic app
     init: ./mvnw -B dependency:go-offline package -DskipTests
-    command: java -jar target/*.jar
+    command: |
+      alias test_no_sql="mvn spring-boot:run"
+      alias test_mysql="mvn spring-boot:run -Dspring-boot.run.profiles=mysql"
+      test_no_sql
   - name: Start Tailscale & preflights
     command: |
       screen -d -m sudo tailscaled --state=mem:
