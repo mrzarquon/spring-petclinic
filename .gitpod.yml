@@ -25,6 +25,7 @@ vscode:
     - pivotal.vscode-spring-boot
     - vscjava.vscode-java-pack
     - redhat.java
+    - vscjava.vscode-maven
 
 github:
   prebuilds:
